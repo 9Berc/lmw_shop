@@ -1,0 +1,89 @@
+<view class="container">
+
+	<view class="userinfo">
+  <button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 微信授权登录 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{user_avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{user_nickName}}</text>
+    </block>
+	</view>
+  <!--登录弹窗-->
+<view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+  <view class="modal-dialog" wx:if="{{showModal}}">
+  <view class="modal-content">
+    <view><image src='../images/show.png' class='show'></image></view>
+    <view>绑定手机号</view>
+    <view>请先绑定手机号在进行此操作</view>  
+    <button open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber">微信用户一键绑定</button>
+  </view>
+</view>
+
+<!-- 公告详情 -->
+  <view class="userinfo-notice" wx:if="{{noticeList}}">
+    <image src="../../images/gonggao.png" />
+    <swiper wx:if="{{noticeList}}" class="notice_swiper" vertical="true" autoplay="true" circular="true" interval="6000">
+      <navigator wx:for-items="{{noticeList.dataList}}" wx:key="id" url="/pages/notice/notice?id={{item.id}}" hover-class="none" open-type="navigate">
+        <swiper-item >
+          <view class="notice_itemr">{{item.title}}</view>
+        </swiper-item>
+      </navigator>
+    </swiper>
+  </view>
+  
+  <view class="userinfo-item">
+    <image src="../../images/profile_dfunding.png"></image>
+    <navigator url="/pages/order-list/order-list" hover-class="none">我的订单</navigator>
+  </view>
+  <view class="user-cart-list">
+    <navigator hover-class="none" class="cart-list" url="/pages/order-list/order-list?currentType=0">
+      <view wx:if="{{noplay}}" class="red-dot">{{noplay}}</view>
+      <image src="../../images/order-details/orderform_pay.png"></image>
+      待付款
+    </navigator>
+    <navigator hover-class="none" class="cart-list" url="/pages/order-list/order-list?currentType=1">
+      <view wx:if="{{notransfer}}" class="red-dot">{{notransfer}}</view>
+      <image src="../../images/order-details/orderform_ship.png"></image>
+      待发货
+    </navigator>
+    <navigator hover-class="none" class="cart-list" url="/pages/order-list/order-list?currentType=2">
+      <view wx:if="{{noconfirm}}" class="red-dot">{{noconfirm}}</view>
+      <image src="../../images/order-details/delivering.png"></image>
+      待收货
+    </navigator>
+    <navigator hover-class="none" class="cart-list" url="/pages/order-list/order-list?currentType=3">
+      <view wx:if="{{noreputation}}" class="red-dot">{{noreputation}}</view>
+      <image src="../../images/order-details/orderform.png"></image>
+      待评价
+    </navigator>
+  </view>
+  <view class="userinfo-item-box">
+    <navigator  hover-class="none" class="userinfo-item" url="/pages/withdraw/withdraw">
+      <image src="../../images/profile_tegral.png"></image>
+      <text>{{balance}}元</text>
+      <view>我的余额</view>
+    </navigator>
+    <navigator hover-class="none" class="userinfo-item" url="/pages/score/score">
+      <image src="../../images/jifen.png"></image>
+			<text>{{score}}积分</text>
+      <view>我的积分</view>
+    </navigator>
+    <navigator hover-class="none" class="userinfo-item" url="/pages/my-coupons/my-coupons">
+      <image src="../../images/profile_ticket.png"></image>
+      <view>我的礼券</view>
+    </navigator>
+    <navigator hover-class="none" class="userinfo-item" url="/pages/fav-list/fav-list">
+      <image src="../../images/profile_collection.png"></image>
+      <view>我的收藏</view>
+    </navigator>
+    <navigator hover-class="none" class="userinfo-item" url="/pages/address/address">
+      <image src="../../images/profile_address.png"></image>
+      <view>我的地址</view>
+    </navigator>
+    <view class="userinfo-item">
+      <image src="../../images/profile_service.png"></image>
+      <view>联系客服</view>
+      <button open-type="contact" session-from="weapp"></button>
+    </view>
+  </view>
+
+</view>

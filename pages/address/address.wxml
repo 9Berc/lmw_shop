@@ -1,0 +1,26 @@
+<navigation id='Navigation' show-icon="{{true}}" title="地址管理" show-title="{{true}}" class=""></navigation>
+<view class="container">
+  <view class="address-list">
+    <view class="a-address" wx:for-items="{{addressList}}" wx:for-item="item">
+      <view class="left-text {{item.isDefault? 'active':''}}" bindtap="selectTap" data-id="{{item.id}}">
+        <view class="name-tel">
+          {{item.name}} {{item.phoneNumber}}
+        </view>
+        <view class="address-box">
+          {{item.city}}{{item.province}}{{item.region!='请选择'?item.region:""}}{{item.detailAddress}}
+        </view>
+      </view>
+      <text wx:if="{{item.defaultStatus == '1'}}" class="moren">默认</text>
+      <view class="right-edit" bindtap="editAddess" data-id="{{item.id}}"></view>
+    </view>
+  </view>
+  <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">
+    <image src="/images/address_empty.png" class="no-order-img"></image>
+    <view class="text">还没有添加地址呢</view>
+  </view>
+  <view class="bottom-box" bindtap="addAddess">
+    <image src="../../images/address_add.png"></image>
+    新增地址
+  </view>
+
+</view>

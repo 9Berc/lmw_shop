@@ -1,0 +1,17 @@
+<navigation id='Navigation' show-icon="{{true}}" title="我的收藏" show-title="{{true}}" class=""></navigation>
+<view class="goods-container">
+  <view class="goods-box" wx:for-items="{{favList}}" wx:key="{{index}}">
+    <view class="img-box">
+      <image src="{{item.productPic}}" class="image" mode="aspectFill" lazy-load="true" />
+    </view>
+    <view class="goods-title">{{item.productName}}</view>
+    <view class="good-money">{{item.productSubTitle}}</view>
+    <view class="goods-title red">￥{{item.productPrice}}</view>
+    <view class="title-opacity" bindtap="toDetailsTap" data-id="{{item.pmsProduct.id}}">查看详细</view>
+    <view class="title-opacity delete" bindtap="deleteProduct" data-id="{{item.pmsProduct.id}}"><image src="/images/delete.png"></image></view>
+  </view>
+  <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">
+    <image src="/images/empty_collection.png" class="no-order-img"></image>
+    <view class="text">还没有任何收藏呢</view>
+  </view>
+</view>

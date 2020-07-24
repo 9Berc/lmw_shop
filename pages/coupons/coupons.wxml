@@ -1,0 +1,30 @@
+<!--index.wxml-->
+<navigation id='Navigation' show-icon="{{true}}" title="礼券" show-title="{{true}}" class=""></navigation>
+<view class="container">
+  <!-- <view class="coupons-bg" wx:for="{{banners}}" wx:key="id">
+    <image class="coupons-image" src="{{item.picUrl}}"></image>
+    <view class="coupons-input">
+      <input class="input" type="coupons" placeholder="请输入礼券码" placeholder-style="color: #f8b551" bindinput="listenerCouponsInput" data-id="{{item.businessId}}" />
+      <view class="primary" bindtap="listenerDuiHuan">兑 换</view>
+    </view>
+  </view> -->
+  <view class="coupons-list" wx:for="{{coupons}}" wx:for-index="index" wx:for-item="item" bindtap="gitCoupon" data-id="{{item.id}}">
+    <view class="coupons-item">
+      <view class="coupons-item-box">
+        <view class="money-left">{{item.amount}}
+          <text>元</text>
+        </view>
+        <view class="money-right">
+          <!-- <view class="money-name">{{item.name}}</view> -->
+          <view class="money-name">{{item.note}}</view>
+          <view class="money-hold">剩余{{item.count}}张</view>
+        </view>
+        <view class="money-home">立即领取</view>
+      </view>
+      <view class="money-line"></view>
+      <view class="money-fooder">{{item.endTime}} 前有效 <text>每人限领{{item.perLimit}}张</text></view>
+      <!-- <view class="money-fooder" wx:if="{{item.dateEndType == 0}}">{{item.endTime}} 前有效</view> -->
+      <!-- <view class="money-fooder" wx:if="{{item.dateEndType == 1}}">领取 {{item.dateEndDays}} 天内有效</view> -->
+    </view>
+  </view>
+</view>
