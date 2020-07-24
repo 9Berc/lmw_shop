@@ -424,6 +424,27 @@ Page({
     var that = this;
     var user_tokenHead = wx.getStorageSync('user_tokenHead');
     var user_token = wx.getStorageSync('user_token');
+	
+	var list = that.data.list;
+	var cartIdsList = [];
+	list.forEach(function (item,index){
+		if (item.active == true) {
+			cartIdsList.push(item.id);
+		}
+	})
+	
+	if (cartIdsList.length == 0) {
+		that.setData({
+			cartIds: ''
+		})
+	} else {
+		cartIdsList =  cartIdsList.toString();
+		that.setData({
+			cartIds: cartIdsList
+		})
+	}
+	//console.log(that.data.cartIds);
+	
     // var generateOrder = {
     //   cartIds:'',
     //   memberReceiveAddressId:'',//会员接收地址
