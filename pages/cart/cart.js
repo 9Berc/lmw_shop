@@ -443,25 +443,19 @@ Page({
 			cartIds: cartIdsList
 		})
 	}
-	//console.log(that.data.cartIds);
-	
-    // var generateOrder = {
-    //   cartIds:'',
-    //   memberReceiveAddressId:'',//会员接收地址
-    //   couponId:'',//优惠券ID
-    //   useIntegration:'',
-    //   payType:'',//支付类型
-    //   payStyle:''//支付方式
-    // };
-    var generateOrder = cartIds + '';
+	console.log(that.data.cartIds);
+
+    var generateOrder = that.data.cartIds;
     wx.request({
           url: app.globalData.baseUrl + '/mallPort/order/generateConfirmOrder',  //创建订单接口
           method: 'POST',
             header: {
-              'content-type': 'application/json',
+              'content-type': 'application/x-www-form-urlencoded',
               'Authorization':user_tokenHead+' '+ user_token,
             },
-          data: generateOrder,
+          data: {
+            cartIds:generateOrder
+          },
           success: function (res) {
             console.log(res);
             that.navigateToPayOrder();
@@ -469,11 +463,13 @@ Page({
         })
   },
 
+
   //跳至支付结果页
   navigateToPayOrder: function () {
     wx.hideLoading();
+	var allGoods = JSON.stringify(this.data.list);
     wx.navigateTo({
-      url: "/pages/pay-order/pay-order?orderType=cart"
+      url: "/pages/pay-order/pay-order?orderType=cart&cartIds="+this.data.cartIds+"&list="+allGoods+"&totalPrice="+this.data.totalPrice
     })
   }
 })
