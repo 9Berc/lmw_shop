@@ -32,9 +32,17 @@ Page({
       },
       success: function (res) {
         if (res.data.code == 200) {
-          console.log(res.data.data);
-          var coupons = res.data.data;
-          if (coupons.length > 0) {
+          //console.log(res.data.data);
+          var couponsData = res.data.data;
+					var coupons = [];
+					
+          if (couponsData.length > 0) {
+						for (var i=0;i<couponsData.length;i++) {
+							if (couponsData[i].useStatus == 0) {
+								coupons.push(couponsData[i]);
+							}
+						}
+						
             that.setData({
               coupons: coupons,
               loadingMoreHidden: true

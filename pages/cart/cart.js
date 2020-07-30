@@ -437,39 +437,33 @@ Page({
 		that.setData({
 			cartIds: ''
 		})
+		wx.showToast({
+		  title: '请选择商品',
+		  duration:1000,//显示时长
+		  mask:true,//是否显示透明蒙层，防止触摸穿透，默认：false 
+		  icon:'none',
+		})
+		
+		return false;
 	} else {
 		cartIdsList =  cartIdsList.toString();
 		that.setData({
 			cartIds: cartIdsList
 		})
+		that.navigateToPayOrder();
 	}
-	console.log(that.data.cartIds);
-
-    var generateOrder = that.data.cartIds;
-    wx.request({
-          url: app.globalData.baseUrl + '/mallPort/order/generateConfirmOrder',  //创建订单接口
-          method: 'POST',
-            header: {
-              'content-type': 'application/x-www-form-urlencoded',
-              'Authorization':user_tokenHead+' '+ user_token,
-            },
-          data: {
-            cartIds:generateOrder
-          },
-          success: function (res) {
-            console.log(res);
-            that.navigateToPayOrder();
-          }
-        })
+	
+    
   },
 
 
   //跳至支付结果页
   navigateToPayOrder: function () {
     wx.hideLoading();
-	var allGoods = JSON.stringify(this.data.list);
+	//var allGoods = JSON.stringify(this.data.list);
     wx.navigateTo({
-      url: "/pages/pay-order/pay-order?orderType=cart&cartIds="+this.data.cartIds+"&list="+allGoods+"&totalPrice="+this.data.totalPrice
+      url: "/pages/pay-order/pay-order?orderType=cart&cartIds="+this.data.cartIds
+	  // url: "/pages/pay-order/pay-order?orderType=cart&cartIds="+this.data.cartIds+"&list="+allGoods+"&totalPrice="+this.data.totalPrice
     })
   }
 })

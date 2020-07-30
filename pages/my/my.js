@@ -195,7 +195,7 @@ getUserAllInfor:function(){
       if (res.data.code == 200) {
         console.log(res)
           that.setData({
-            score:res.data.data.growth
+            score:res.data.data.integration
           })
       } else {
         wx.showModal({

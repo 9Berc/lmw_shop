@@ -80,7 +80,7 @@ Page({
           that.setData({
             // balance: res.data.data.balance,
             // freeze: res.data.data.freeze,
-            score: res.data.data.growth
+            score: res.data.data.integration
           });
         }
       }
